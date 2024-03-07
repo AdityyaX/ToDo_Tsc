@@ -94,7 +94,7 @@ export const Muitext = () => {
                 <Grid item xs={12} sm={6}>
                     <Stack direction='column' sx={{ minHeight: '50vh', padding: '2vh', borderRadius: '1vh', backgroundColor: 'white' ,marginTop: '20vh',}} spacing={2}>
                         <Typography variant="h4" gutterBottom component="div" sx={{ textAlign: 'center', color: 'primary.main' }}>List</Typography>
-                        <Stack direction="row" spacing={4}>
+                        <Stack direction="row" spacing={2}>
                             <Typography variant="h6">S.NO</Typography>
                             <Typography variant="h6">Title</Typography>
                             <Typography variant="h6">Description</Typography>
@@ -103,7 +103,7 @@ export const Muitext = () => {
 
                         {task.map((task) => (
                             <div key={task.title} >
-                                <Stack direction="row" spacing={4}>
+                                <Stack direction="row" spacing={2}>
                                     <Typography variant="h6">*</Typography>
                                     <Typography variant="h6">{task.title}</Typography>
                                     <Typography variant="h6">{task.description}</Typography>
