@@ -2,8 +2,10 @@ import { TextField, Button, Stack, Typography } from "@mui/material";
 import { ToggleButtonGroup, ToggleButton } from '@mui/material';
 import { FormControl } from '@mui/material';
 import Grid from '@mui/material/Grid';
+import AddIcon from '@mui/icons-material/Add';
+
 // export {};
-import { useState } from "react";
+import React, { useState } from "react";
 export const Muitext = () => {
     const [todo,setodo] = useState<string>('')
     const [description,setdescription] = useState<string>('')
@@ -14,6 +16,13 @@ export const Muitext = () => {
     //     const updated = [...task, newtask];
     //     settask(updated);
     //   };
+    const handledelete = (event: React.MouseEvent<HTMLElement>,id:any) => {
+event.preventDefault();
+settask(task => task.filter(task => task.id !== id));
+// const updatedTasks = [...task]
+// updatedTasks.splice(id,1);
+// settask(updatedTasks);
+    }
     const handleSubmit = (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
         if (!todo || !priority || !description) {
@@ -22,6 +31,7 @@ export const Muitext = () => {
         }
 
         const newtask = {
+            id: new Date().getTime(),
             title: todo,
             description: description,
             priority: priority,
@@ -61,14 +71,15 @@ export const Muitext = () => {
                     <Stack direction='column' spacing={2}>
                         <TextField 
                             label="title" 
-                            variant="filled" 
+                            variant="standard"
+
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 setodo(event.target.value);
                             }}
                         />
                         <TextField 
                             label="Description" 
-                            variant="filled" 
+                            variant="standard"
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 setdescription(event.target.value);
                             }} 
@@ -87,26 +98,39 @@ export const Muitext = () => {
                             color="primary"
                             onClick={handleSubmit}
                         >
-                            Submit
+               Add Task
                         </Button>
                     </Stack>
                 </FormControl>
+               
             </Stack>
             </Grid>
             <Grid item xs={6}>
                 <Stack direction='column' sx={{ minHeight: '50vh', minWidth:'80vh', marginTop:'20vh', padding: '2vh', borderRadius: '1vh', backgroundColor: 'white' }} spacing={2}>
                 <Typography variant="h4" gutterBottom component="div" sx={{ textAlign: 'center', color: 'primary.main' }}>List</Typography>
+                <Stack direction="row" spacing={4}>
+                    <Typography variant="h6">S.NO</Typography>
+                    <Typography variant="h6">Title</Typography>
+                    <Typography variant="h6">Description</Typography>
+                    <Typography variant="h6">Priority</Typography>
+                </Stack>
+        
         {task.map((task) => (
             <div key={task.title} >
                 <Stack direction="row" spacing={4}>
-                <Typography variant="h6">*</Typography>
-                <Typography variant="h6">{task.title}</Typography>
-                <Typography variant="h6">{task.description}</Typography>
-                <Typography variant="h6">{task.priority}</Typography>
+                    <Typography variant="h6">*</Typography>
+                    <Typography variant="h6">{task.title}</Typography>
+                    <Typography variant="h6">{task.description}</Typography>
+                    <Typography variant="h6">{task.priority}</Typography>
+                    <Button onClick={(event: React.MouseEvent<HTMLElement>) => { handledelete(event, task.id) }} variant="contained">Completed</Button>
                 </Stack>
+                
             </div>
         ))}
+
         </Stack>
+<AddIcon/>
+
         </Grid>
         </Grid>
        
